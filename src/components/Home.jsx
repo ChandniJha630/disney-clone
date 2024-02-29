@@ -10,29 +10,32 @@ import Trending from "./Trending";
 import Viewers from "./Viewers";
 import db from "../firebase";
 import { setMovies } from "../features/movie/movieSlice";
-import { selectUserName, selectUserPhoto } from "../features/user/userSlice";
+// import { selectUserName, selectUserPhoto } from "../features/user/userSlice";
 import {collection, getDocs} from "firebase/firestore"
 
 function Home(){
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const userName = useSelector(selectUserName);
-  const userPhoto = useSelector(selectUserPhoto);
+  // const navigate = useNavigate();
+  // const userName = useSelector(selectUserName);
+  // const userPhoto = useSelector(selectUserPhoto);
   const [recommends, setRecommends] = useState([]);
   const [newDisneys, setNewDisneys] = useState([]);
   const [originals, setOriginals] = useState([]);
   const [trending, setTrending] = useState([]);
 
   useEffect(() => {
+    
     const fetchData = async () => {
       try {
-        const docRef = await getDocs(collection(db, "movie"));
+        const moviesCollection = collection(db, 'movie');
+        const movieSnapshot = await getDocs(moviesCollection);
+        console.log(movieSnapshot)
         const newRecommends = [];
         const newNewDisneys = [];
         const newOriginals = [];
         const newTrending = [];
   
-        docRef.forEach((doc) => {
+        movieSnapshot.docs.forEach((doc) => {
           switch (doc.data().type) {
             case "recommend":
               newRecommends.push({ id: doc.id, ...doc.data() });
@@ -56,7 +59,7 @@ function Home(){
         setNewDisneys(newNewDisneys);
         setOriginals(newOriginals);
         setTrending(newTrending);
-  
+        console.log(recommends,originals,trending,newDisneys);
         dispatch(
           setMovies({
             recommend: newRecommends,

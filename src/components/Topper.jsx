@@ -65,6 +65,7 @@ const Topper = () => {
       })
     );
   };
+   
 
   return (
     <Nav>
@@ -108,7 +109,14 @@ const Topper = () => {
           <SignOut>
             <UserImg src={userPhoto} alt={userName} />
             <DropDown>
-              <span onClick={handleAuth}>Sign out</span>
+            <span>
+              <UL>
+              <Li onClick={handleAuth}>Sign out</Li>
+              <Li>
+          <NavLink to="/profile">profile</NavLink>
+        </Li>
+              </UL>
+              </span>
             </DropDown>
           </SignOut>
         </>
@@ -130,7 +138,16 @@ const Nav = styled.nav`
   letter-spacing: 16px;
   z-index: 3;
 `;
-
+const UL=styled.ul`
+list-style-type: none;
+`
+const Li=styled.li`
+padding: 5px;
+align-items:center;
+border: 1px solid gray;
+border-radius: 4px;
+margin: 12px;
+`
 const Logo = styled.a`
   padding: 0;
   width: 80px;
@@ -172,7 +189,7 @@ const NavMenu = styled.div`
     span {
       color: rgb(249, 249, 249);
       font-size: 13px;
-      letter-spacing: 1.42px;
+      letter-spacing: 1px;
       line-height: 1.08;
       padding: 2px 0px;
       white-space: nowrap;
@@ -232,16 +249,16 @@ const UserImg = styled.img`
 
 const DropDown = styled.div`
   position: absolute;
-  top: 48px;
+  top: 34px;
   right: 0px;
   background: rgb(19, 19, 19);
   border: 1px solid rgba(151, 151, 151, 0.34);
   border-radius: 4px;
   box-shadow: rgb(0 0 0 / 50%) 0px 0px 18px 0px;
-  padding: 10px;
+  padding: 3px;
   font-size: 14px;
-  letter-spacing: 3px;
-  width: 100px;
+  letter-spacing: 1px;
+  width: 300px;
   opacity: 0;
 `;
 
